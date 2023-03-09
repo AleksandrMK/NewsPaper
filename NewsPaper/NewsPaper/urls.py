@@ -19,6 +19,8 @@ from django.urls import path, include
 from news.views import *
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('news/', include('news.urls')),
+   path('admin/', admin.site.urls),
+   path('pages/', include('django.contrib.flatpages.urls')),
+   path('', include('news.urls')),
+   path('accounts/', include('django.contrib.auth.urls'))
 ]
