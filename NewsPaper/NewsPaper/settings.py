@@ -36,11 +36,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'news',
     'django.contrib.flatpages',
     'django.contrib.sites',
     'django_filters',
-
 ]
 
 SITE_ID = 1
@@ -129,3 +129,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+LOGIN_REDIRECT_URL = "/products"
