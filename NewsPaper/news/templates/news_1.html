@@ -1,20 +1,15 @@
 {% extends 'flatpages/index.html' %}
-
 {% load custom_filters %}
 
 {% block title %}
-News
+    News List
 {% endblock title %}
 
 {% block content %}
-    <h1>Все новости</h1>
+    <h1>Новости</h1>
     <h3>{{ time_now|date:'d M Y' }}</h3>
-    <h3>Количество доступных статей и новостей:</h3> <h3>{{ news|length }}</h3>
+    <h3>Количество доступных статей и новостей: {{ news|length }}</h3>
     <h3> {{ next_post|default_if_none:"Чуть позже сообщим о свежих новостях!" }} </h3>
-    <form action="" method="get">
-        {{ filterset.form.as_p }}
-        <input type="submit" value="Найти" />
-    </form>
 <hr>
 {% if news %}
 <table>
