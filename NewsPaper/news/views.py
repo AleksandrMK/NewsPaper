@@ -1,8 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Post, Category
 from .filters import PostFilter
 from .forms import PostForms
 
@@ -51,7 +51,7 @@ class NewsList(PostList):
 
 class PostDetail(DetailView):
     model = Post
-    template_name = 'post_1.html'
+    template_name = 'post_details.html'
     context_object_name = 'post'
 
 
@@ -90,15 +90,14 @@ class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Post
     template_name = 'post_edit.html'
 
-
-class NewsCreate(PostCreate):
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.categoryType = 'NW'
+        post.essence = 'AR'
+        print(post)
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('one_news', kwargs={'pk': self.object.id})
+        return reverse('post_details', kwargs={'pk': self.object.id})
 
 
 class ArticlesCreate(PostCreate):
@@ -139,3 +138,20 @@ class PostDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('post_list')
+
+
+class CategoryListView(ListView):
+    model = Post
+    template_name = 'news/category_list.html'
+    context_object_name = 'category_news_list'
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, id=self.kwargs['pk'])
+        queryset = Post.objects.filter(category=self.category).order_by('-data')
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_not_subscriber'] = self.request.user not in self.category.subscribers.all()
+        context['category'] = self.category
+        return context
