@@ -10,7 +10,7 @@ from .forms import PostForms
 class PostList(ListView):
     model = Post
     ordering = '-dateCreation'
-    template_name = 'news_1.html'
+    template_name = 'news.html'
     context_object_name = 'news'
     paginate_by = 2
 
