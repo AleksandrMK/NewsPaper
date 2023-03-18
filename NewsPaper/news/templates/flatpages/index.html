@@ -29,24 +29,24 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="{% url 'news_list' %}">News</a>
+                            <a class="nav-link" href="{% url 'news_list' %}">Новости</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'articles_list' %}">Articles</a>
+                            <a class="nav-link" href="{% url 'articles_list' %}">Статьи</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'search' %}">Search🔍︎</a>
+                            <a class="nav-link" href="{% url 'search' %}">Поиск🔍︎</a>
                         </li>
                         {% if user.is_authenticated %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'account_email' %}">Вы вошли как: {% user_display user %}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'account_logout' %}">logout</a>
+                                <a class="nav-link" href="{% url 'account_logout' %}">Выйти</a>
                             </li>
                         {% else %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'account_login' %}">login⎆</a>
+                                <a class="nav-link" href="{% url 'account_login' %}">Войти⎆</a>
                             </li>
                         {% endif %}
                     </ul>
