@@ -1,11 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Exists, OuterRef
-from django.shortcuts import redirect, get_object_or_404, render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy, reverse
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, Category, Subscription
+from .models import Post, Category, Subscriber
 from .filters import PostFilter
 from .forms import PostForms
 
@@ -143,23 +143,6 @@ class PostDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('post_list')
 
 
-class CategoryListView(ListView):
-    model = Post
-    template_name = 'news/category_list.html'
-    context_object_name = 'category_news_list'
-
-    def get_queryset(self):
-        self.category = get_object_or_404(Category, id=self.kwargs['pk'])
-        queryset = Post.objects.filter(category=self.category).order_by('-data')
-        return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['is_not_subscriber'] = self.request.user not in self.category.subscribers.all()
-        context['category'] = self.category
-        return context
-
-
 @login_required
 @csrf_protect
 def subscriptions(request):
@@ -169,16 +152,16 @@ def subscriptions(request):
         action = request.POST.get('action')
 
         if action == 'subscribe':
-            Subscription.objects.create(user=request.user, category=category)
+            Subscriber.objects.create(user=request.user, category=category)
         elif action == 'unsubscribe':
-            Subscription.objects.filter(
+            Subscriber.objects.filter(
                 user=request.user,
                 category=category,
             ).delete()
 
     categories_with_subscriptions = Category.objects.annotate(
         user_subscribed=Exists(
-            Subscription.objects.filter(
+            Subscriber.objects.filter(
                 user=request.user,
                 category=OuterRef('pk'),
             )
