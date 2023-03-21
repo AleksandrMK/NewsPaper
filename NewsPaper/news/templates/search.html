@@ -1,0 +1,11 @@
+{% extends 'flatpages/index.html' %}
+
+{% block content %}
+<h1>Поиск</h1>
+<hr>
+<form action="/" method="get">
+    {% csrf_token %}
+    {{ filterset.form.as_p }}
+    <input type="submit" value="Поиск" />
+</form>
+{% endblock content %}
