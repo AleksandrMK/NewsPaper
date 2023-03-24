@@ -132,7 +132,7 @@ class ArticlesEdit(PostEdit):
         return reverse('one_articles', kwargs={'pk': self.kwargs['pk']})
 
 
-def News(request):
+def news(request):
     return redirect('/news/create/')
 
 
