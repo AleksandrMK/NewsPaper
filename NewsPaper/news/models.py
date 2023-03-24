@@ -57,7 +57,7 @@ class Post(models.Model):
         return '{} ... {}'.format(self.text[0:123], str(self.rating))
 
     def __str__(self):
-        return f'{self.date.strftime("%Y-%m-%d %H:%M")}, {self.header}, {self.text}'
+        return f'{self.dateCreation.strftime("%Y-%m-%d %H:%M")}, {self.title}, {self.text}'
 
 
 class PostCategory(models.Model):
