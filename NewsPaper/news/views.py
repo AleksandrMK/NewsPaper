@@ -93,14 +93,15 @@ class PostCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Post
     template_name = 'post_edit.html'
 
+
+class NewsCreate(PostCreate):
     def form_valid(self, form):
         post = form.save(commit=False)
-        post.essence = 'AR'
-        print(post)
+        post.categoryType = 'NW'
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('post_details', kwargs={'pk': self.object.id})
+        return reverse('one_news', kwargs={'pk': self.object.id})
 
 
 class ArticlesCreate(PostCreate):
@@ -131,7 +132,7 @@ class ArticlesEdit(PostEdit):
         return reverse('one_articles', kwargs={'pk': self.kwargs['pk']})
 
 
-def news(request):
+def News(request):
     return redirect('/news/create/')
 
 

@@ -19,8 +19,9 @@ from django.urls import path, include
 from news.views import *
 
 urlpatterns = [
-   path('admin/', admin.site.urls),
-   path('pages/', include('django.contrib.flatpages.urls')),
-   path('', include('news.urls')),
-   path('accounts/', include("allauth.urls")),
+    path('admin/', admin.site.urls),
+    path('pages/', include('django.contrib.flatpages.urls')),
+    path('', include('news.urls')),
+    path('accounts/', include("allauth.urls")),
+    path('subscriptions/', subscriptions, name='subscriptions'),
 ]
