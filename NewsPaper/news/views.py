@@ -101,7 +101,7 @@ class NewsCreate(PostCreate):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('one_news', kwargs={'pk': self.object.id})
+        return reverse('post_details', kwargs={'pk': self.object.id})
 
 
 class ArticlesCreate(PostCreate):
@@ -124,7 +124,7 @@ class PostEdit(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class NewsEdit(PostEdit):
     def get_success_url(self):
-        return reverse('one_news', kwargs={'pk': self.kwargs['pk']})
+        return reverse('post_details', kwargs={'pk': self.kwargs['pk']})
 
 
 class ArticlesEdit(PostEdit):
