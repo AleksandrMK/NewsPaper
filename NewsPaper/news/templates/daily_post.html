@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Заголовок</title>
+</head>
+<body>
+<h2>Привет, новые статьи за последнюю неделю</h2>
+<ul>
+    {% load custom_filters %}
+    {% for post in posts %}
+        <li><a href="{{ link }}{{post.essence|translate_essence}}{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+    {% endfor %}
+</ul>
+</body>
+</html>
