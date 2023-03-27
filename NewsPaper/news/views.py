@@ -124,7 +124,7 @@ class PostEdit(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
 
 class NewsEdit(PostEdit):
     def get_success_url(self):
-        return reverse('post_details', kwargs={'pk': self.kwargs['pk']})
+        return reverse('post_edit', kwargs={'pk': self.kwargs['pk']})
 
 
 class ArticlesEdit(PostEdit):
